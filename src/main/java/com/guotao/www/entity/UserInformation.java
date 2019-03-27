@@ -9,7 +9,6 @@ public class UserInformation implements Serializable {
 
 	private static final long serialVersionUID =  6737138553451872347L;
 
-
 	/**
 	 * 编号
 	 */

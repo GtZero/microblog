@@ -30,7 +30,7 @@ public interface ContentDao {
      * @param contentPageBean
      * @return
      */
-    PageBean<Content> getUserAllContent(PageBean<Content> contentPageBean);
+    PageBean<Content> getAllContent(PageBean<Content> contentPageBean);
 
     /**
      * 用户向content表中新添一篇博文

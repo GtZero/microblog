@@ -16,7 +16,7 @@ public class ContentDaoImpl implements ContentDao {
     }
 
     @Override
-    public PageBean<Content> getUserAllContent(PageBean<Content> contentPageBean) {
+    public PageBean<Content> getAllContent(PageBean<Content> contentPageBean) {
         return null;
     }
 

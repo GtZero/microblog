@@ -62,7 +62,7 @@ public class ContentService {
     };
 
     /**
-     * 获取特定用户的所有博文，使用分页
+     * 获取所有用户的所有博文，使用分页
      * 使用场合:管理员获取所有用户博文
      * @param contentPageBean
      * @return

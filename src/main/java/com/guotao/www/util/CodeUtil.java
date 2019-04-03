@@ -86,17 +86,9 @@ public class CodeUtil {
         }
         Map<String,Object> map  =new HashMap<String,Object>();
         //存放验证码
-        map.put("code", randomCode);
+        map.put("code", randomCode.toString());
         //存放生成的验证码BufferedImage对象
         map.put("codePic", buffImg);
         return map;
-    }
-
-    public static void main(String[] args) throws Exception {
-        //创建文件输出流对象
-        OutputStream out = new FileOutputStream("D://img/"+System.currentTimeMillis()+".jpg");
-        Map<String,Object> map = CodeUtil.generateCodeAndPic();
-        ImageIO.write((RenderedImage) map.get("codePic"), "jpeg", out);
-        System.out.println("验证码的值为："+map.get("code"));
     }
 }

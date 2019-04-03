@@ -12,4 +12,77 @@
     <servlet-name>UserLoginServlet</servlet-name>
     <url-pattern>/user/login</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>loginServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.LoginCodeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginServlet</servlet-name>
+    <url-pattern>/user/login/code</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UserRegisterServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.UserRegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserRegisterServlet</servlet-name>
+    <url-pattern>/user/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>InsertContentServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.InsertContentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertContentServlet</servlet-name>
+    <url-pattern>/content/insert</url-pattern>
+  </servlet-mapping>
+
+
+<servlet>
+<servlet-name>DeleteContentServlet</servlet-name>
+<servlet-class>com.guotao.www.controller.DeleteContentServlet</servlet-class>
+</servlet>
+  <servlet-mapping>
+<servlet-name>DeleteContentServlet</servlet-name>
+<url-pattern>/content/delete</url-pattern>
+</servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetOneContentServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.GetOneContentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetOneContentServlet</servlet-name>
+    <url-pattern>/content/getOne</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetAllContentServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.GetAllContentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllContentServlet</servlet-name>
+    <url-pattern>/content/getAll</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserAllContentServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.GetUserAllContentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserAllContentServlet</servlet-name>
+    <url-pattern>/content/getUserAll</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UpdateUserInformationServlet</servlet-name>
+    <servlet-class>com.guotao.www.controller.UpdateUserInformationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateUserInformationServlet</servlet-name>
+    <url-pattern>/user/information/update</url-pattern>
+  </servlet-mapping>
 </web-app>

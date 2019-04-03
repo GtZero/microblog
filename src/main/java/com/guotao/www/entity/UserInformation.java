@@ -86,6 +86,12 @@ public class UserInformation implements Serializable {
 
 	public  UserInformation(){};
 
+	public UserInformation(String loginName, String password, String email) {
+		this.loginName = loginName;
+		this.password = password;
+		this.email = email;
+	}
+
 	public  UserInformation(String userId, String name, String loginName, String password, String email, String phone, String qq, String wx, Date birth, String avatar, String description, String flag, String isDelete, Date createdTime, Date updateTime){
 	this.userId = userId;
 	this.name = name;

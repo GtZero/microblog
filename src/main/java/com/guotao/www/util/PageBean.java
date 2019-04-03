@@ -11,7 +11,7 @@ public class PageBean<T> {
     //当前页码
     private Integer currentPage = 1;
     //每页显示条数
-    private Integer pageSize = 5;
+    private Integer pageSize = 6;
     //当前条件下的总记录数
     private Integer totalCount = 0;
     //总页数

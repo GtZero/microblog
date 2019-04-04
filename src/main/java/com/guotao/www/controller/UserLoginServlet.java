@@ -26,24 +26,33 @@ public class UserLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String imageCode = req.getParameter("imageCode");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        if ("".equals(username) || username == null){
-            req.setAttribute("message","用户名不能为空");
-            return;
-        }
-        if ("".equals(password) || password == null){
-            req.setAttribute("message","密码不能为空");
-            return;
-        }
-        UserLoginDTO userLoginDTO = userInformationService.getUserInformationByLogin(username, password);
-        if(userLoginDTO == null){
-            req.setAttribute("message","用户名或密码填写错误");
-            return;
-        }
         HttpSession session = req.getSession();
-        session.setAttribute("User", userLoginDTO);
-        //TODO 写博客首页地址 19.3.27 19.4.5
-        resp.sendRedirect("");
+        String code = (String) session.getAttribute("imageCode");
+        if ("".equals(imageCode) || imageCode == null){
+            req.setAttribute("message","验证码不能为空");
+            return;
+        }
+        if ("".equals(username) || username == null) {
+            req.setAttribute("message", "用户名不能为空");
+            return;
+        }
+        if ("".equals(password) || password == null) {
+            req.setAttribute("message", "密码不能为空");
+            return;
+        }
+        if(code.equals(imageCode)) {
+            UserLoginDTO userLoginDTO = userInformationService.getUserInformationByLogin(username, password);
+            if (userLoginDTO == null) {
+                req.setAttribute("message", "用户名或密码填写错误");
+                return;
+            }
+            session.setAttribute("User", userLoginDTO);
+            System.out.println(userLoginDTO);
+            //TODO 写博客首页地址 19.3.27 19.4.5
+            resp.sendRedirect(req.getContextPath() + "/BlogHome.jsp");
+        }
     }
 }

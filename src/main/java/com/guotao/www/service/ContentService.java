@@ -27,7 +27,6 @@ public class ContentService {
         content.setContentUserName(userLoginDTO.getName());
         content.setContentNumber(BlogConstant.INIT_VISIT_NUMBER);
         content.setIsDelete(BlogConstant.ISDELETE_NO);
-        content.setCreatedTime(new Date());
         contentDao.insertContent(content);
     };
 

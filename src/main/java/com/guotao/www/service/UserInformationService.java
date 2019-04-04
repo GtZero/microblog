@@ -56,7 +56,6 @@ public class UserInformationService {
         // TODO 用户默认头像url GuoT 19.3.28 19.4.5
         userInformation.setAvatar("");
         userInformation.setIsDelete(BlogConstant.ISDELETE_NO);
-        userInformation.setCreatedTime(new Date());
         userInformationDao.insertUserInformation(userInformation);
         userRoleDao.insertUserRole(userId, BlogConstant.USER_DEFAULT_ROLE_ID);
     }
@@ -68,7 +67,6 @@ public class UserInformationService {
     public void updateUserInformation(MultipartFile multipartFile, UserInformation userInformation) {
         // TODO 进行文件上传，返回头像的url设置进去 GuoT 19.3.28 暂时先不做
         /// userInformation.setAvatar("");
-        userInformation.setUpdateTime(new Date());
         userInformationDao.updateUserInformation(userInformation);
     }
 }

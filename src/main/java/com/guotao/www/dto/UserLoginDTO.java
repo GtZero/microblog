@@ -76,6 +76,23 @@ public class UserLoginDTO {
         this.roleName = roleName;
     }
 
+    @Override
+    public String toString() {
+        return "UserLoginDTO{" +
+                "userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", qq='" + qq + '\'' +
+                ", wx='" + wx + '\'' +
+                ", birth=" + birth +
+                ", avatar='" + avatar + '\'' +
+                ", description='" + description + '\'' +
+                ", roleId='" + roleId + '\'' +
+                ", roleName='" + roleName + '\'' +
+                '}';
+    }
+
     public String getUserId() {
         return userId;
     }

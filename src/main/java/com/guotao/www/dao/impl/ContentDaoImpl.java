@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,12 +40,13 @@ public class ContentDaoImpl implements ContentDao {
                 content.setContentId(rs.getString("content_id"));
                 content.setContentUserId(rs.getString("content_user_id"));
                 content.setContentUserName(rs.getString("content_user_name"));
-                content.setContentTypeId(rs.getString("content_user_name"));
+                content.setContentTypeId(rs.getString("content_type_id"));
                 content.setContentTitle(rs.getString("content_title"));
                 content.setDisplayImage(rs.getString("display_image"));
                 content.setDescription(rs.getString("description"));
                 content.setContentData(rs.getString("content_data"));
                 content.setContentNumber(rs.getString("content_number"));
+                content.setFlag(rs.getString("created_time"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,17 +70,22 @@ public class ContentDaoImpl implements ContentDao {
     @Override
     public PageBean<Content> getUserAllContent(String userId, PageBean<Content> contentPageBean) {
         Connection con = ConnectionUtil.getMysqlConnection();
-        String sql = "select *, count(content_id) as totalCount from content where content_user_id = ? and is_delete = '0' limit ?,?";
+        String sql = "select * from content where content_user_id = ? and is_delete = '0' ORDER BY created_time DESC "+"limit "+contentPageBean.getStartNum()+","+contentPageBean.getPageSize();
+        String sql1 = "select COUNT(content_id) as totalCount from content where content_user_id = ? and is_delete = '0'";
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         PageBean<Content> page = contentPageBean;
         try {
             preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, userId);
-            preparedStatement.setString(2, contentPageBean.getStartNum().toString());
-            preparedStatement.setString(3, contentPageBean.getPageSize().toString());
             rs = preparedStatement.executeQuery();
             page = getContentPageBean(rs, page);
+            preparedStatement = con.prepareStatement(sql1);
+            preparedStatement.setString(1, userId);
+            rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                page.setTotalCount(rs.getInt("totalCount"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -96,16 +103,19 @@ public class ContentDaoImpl implements ContentDao {
     @Override
     public PageBean<Content> getAllContent(PageBean<Content> contentPageBean) {
         Connection con = ConnectionUtil.getMysqlConnection();
-        String sql = "select *, count(content_id) as totalCount from content where is_delete = '0' limit ?,?";
+        String sql = "select * from content where is_delete = '0' ORDER BY created_time DESC "+"limit "+contentPageBean.getStartNum()+","+contentPageBean.getPageSize();
+        String sql1 = "select COUNT(content_id) as totalCount from content where is_delete = '0'";
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         PageBean<Content> page = contentPageBean;
         try {
             preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(2, contentPageBean.getStartNum().toString());
-            preparedStatement.setString(3, contentPageBean.getPageSize().toString());
             rs = preparedStatement.executeQuery();
             page = getContentPageBean(rs, page);
+            rs = con.prepareStatement(sql1).executeQuery();
+            if(rs.next()){
+                page.setTotalCount(rs.getInt("totalCount"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -166,7 +176,6 @@ public class ContentDaoImpl implements ContentDao {
 
     public PageBean<Content> getContentPageBean(ResultSet rs, PageBean<Content> page) throws SQLException {
         List<Content> list = new ArrayList<>();
-        String totalCount = null;
         while (rs.next()) {
             Content content = new Content();
             content.setContentId(rs.getString("content_id"));
@@ -178,10 +187,11 @@ public class ContentDaoImpl implements ContentDao {
             content.setDescription(rs.getString("description"));
             content.setContentData(rs.getString("content_data"));
             content.setContentNumber(rs.getString("content_number"));
+            if (rs.getString("created_time") != null) {
+                content.setFlag(rs.getString("created_time").split(" ")[0]);
+            }
             list.add(content);
-            totalCount = rs.getString("totalCount");
         }
-        page.setTotalCount(Integer.valueOf(totalCount));
         page.setList(list);
         return page;
     }

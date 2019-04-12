@@ -70,12 +70,18 @@
       <artifactId>org.springframework.web</artifactId>
       <version>3.1.0.RELEASE</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
 
 
   </dependencies>
 
   <build>
-    <finalName>all</finalName>
+    <finalName>blog</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
 

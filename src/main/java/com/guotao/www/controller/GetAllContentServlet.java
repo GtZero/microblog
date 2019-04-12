@@ -1,5 +1,6 @@
 package com.guotao.www.controller;
 
+import com.guotao.www.dto.UserLoginDTO;
 import com.guotao.www.entity.Content;
 import com.guotao.www.service.ContentService;
 import com.guotao.www.util.PageBean;
@@ -20,10 +21,13 @@ public class GetAllContentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String currentPage = request.getParameter("currentPage");
+        String pageSize = request.getParameter("pageSize");
         PageBean<Content> pageBean = new PageBean<>();
         pageBean.setCurrentPage(new Integer(currentPage));
+        pageBean.setPageSize(new Integer(pageSize));
         pageBean = contentService.getAllContent(pageBean);
-        //TODO 返回给前端 19.4.3 之后
+        request.setAttribute("pageBean", pageBean);
+        request.getRequestDispatcher("/blog.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

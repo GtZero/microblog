@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -21,9 +22,17 @@ public class UserRegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String imageCode = request.getParameter("imageCode");
         String email = request.getParameter("email");
-        UserInformation userInformation = new UserInformation(username, password, email);
-        userInformationService.insertUserInformation(userInformation);
+        HttpSession session = request.getSession();
+        String code = (String) session.getAttribute("imageCode");
+        if(code.equals(imageCode)) {
+        // 测试时使用
+//            if(1 == 1) {
+            UserInformation userInformation = new UserInformation(username, password, email);
+            userInformationService.insertUserInformation(userInformation);
+            response.sendRedirect(request.getContextPath() + "/orderLogin.jsp");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

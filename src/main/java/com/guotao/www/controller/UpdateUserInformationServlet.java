@@ -21,19 +21,27 @@ public class UpdateUserInformationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
-        String avatar = request.getParameter("avatar");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
         String description = request.getParameter("description");
 
         UserInformation userInformation = new UserInformation();
         userInformation.setName(name);
-        userInformation.setAvatar(avatar);
+        userInformation.setEmail(email);
+        userInformation.setPhone(phone);
         userInformation.setDescription(description);
 
         HttpSession session = request.getSession();
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("User");
         userInformation.setUserId(userLoginDTO.getUserId());
 
+        userLoginDTO.setName(name);
+        userLoginDTO.setEmail(email);
+        userLoginDTO.setPhone(phone);
+        userLoginDTO.setDescription(description);
         userInformationService.updateUserInformation(null, userInformation);
+        session.setAttribute("User",userLoginDTO);
+        response.sendRedirect(request.getContextPath()+"/updateUser.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

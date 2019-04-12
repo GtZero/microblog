@@ -19,8 +19,14 @@ public class GetOneContentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String contentId = request.getParameter("contentId");
+        String currentPage = request.getParameter("currentPage");
+        String flag = request.getParameter("flag");
         Content oneContent = contentService.getOneContent(contentId);
         //TODO 返回给前端 19.4.3 之后
+        request.setAttribute("oneContent", oneContent);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("flag", flag);
+        request.getRequestDispatcher("/contentDetail.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -23,13 +23,22 @@ public class GetUserAllContentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String currentPage = request.getParameter("currentPage");
+        String pageSize = request.getParameter("pageSize");
         PageBean<Content> pageBean = new PageBean<>();
         pageBean.setCurrentPage(new Integer(currentPage));
+        pageBean.setPageSize(new Integer(pageSize));
 
         HttpSession session = request.getSession();
-        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("UserLogin");
-        pageBean = contentService.getUserAllContent(userLoginDTO.getUserId(), pageBean);
-        //TODO 返回给前端 19.4.3 之后
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("User");
+        if ("1".equals(userLoginDTO.getRoleId())) {
+            pageBean = contentService.getUserAllContent(userLoginDTO.getUserId(), pageBean);
+            request.setAttribute("pageBean", pageBean);
+        }
+        if ("2".equals(userLoginDTO.getRoleId())) {
+            pageBean = contentService.getAllContent(pageBean);
+            request.setAttribute("pageBean", pageBean);
+        }
+        request.getRequestDispatcher("/portfolio.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

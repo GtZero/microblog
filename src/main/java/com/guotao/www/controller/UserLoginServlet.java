@@ -44,15 +44,16 @@ public class UserLoginServlet extends HttpServlet {
             return;
         }
         if(code.equals(imageCode)) {
-            UserLoginDTO userLoginDTO = userInformationService.getUserInformationByLogin(username, password);
-            if (userLoginDTO == null) {
-                req.setAttribute("message", "用户名或密码填写错误");
-                return;
+            // 测试时使用
+//            if(1 == 1) {
+                UserLoginDTO userLoginDTO = userInformationService.getUserInformationByLogin(username, password);
+                if (userLoginDTO == null) {
+                    req.setAttribute("message", "用户名或密码填写错误");
+                    return;
+                }
+                session.setAttribute("User", userLoginDTO);
+                System.out.println(userLoginDTO);
+                resp.sendRedirect(req.getContextPath() + "/login/getAll?currentPage=1&pageSize=4");
             }
-            session.setAttribute("User", userLoginDTO);
-            System.out.println(userLoginDTO);
-            //TODO 写博客首页地址 19.3.27 19.4.5
-            resp.sendRedirect(req.getContextPath() + "/BlogHome.jsp");
         }
     }
-}

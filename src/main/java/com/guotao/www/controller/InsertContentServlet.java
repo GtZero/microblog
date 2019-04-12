@@ -22,7 +22,7 @@ public class InsertContentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLogin");
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("User");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String displayImage = request.getParameter("displayImage");
@@ -35,6 +35,7 @@ public class InsertContentServlet extends HttpServlet {
         content.setContentData(contentData);
         content.setContentTypeId(contentType);
         contentService.insertContent(userLoginDTO, content);
+        response.sendRedirect(request.getContextPath() + "/content/getUserAll?currentPage=1&pageSize=8");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

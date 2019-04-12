@@ -62,7 +62,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
     @Override
     public void insertUserInformation(UserInformation userInformation) {
         Connection con = ConnectionUtil.getMysqlConnection();
-        String sql = "insert into user_information (user_id, name, login_name, password, is_delete, created_time) values (?, ?, ?, ?, ? , now());";
+        String sql = "insert into user_information (user_id, name, login_name, password, is_delete, created_time, email) values (?, ?, ?, ?, ? , now(), ?);";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = con.prepareStatement(sql);
@@ -71,6 +71,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
             preparedStatement.setString(3, userInformation.getLoginName());
             preparedStatement.setString(4, userInformation.getPassword());
             preparedStatement.setString(5, userInformation.getIsDelete());
+            preparedStatement.setString(6, userInformation.getEmail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,13 +87,15 @@ public class UserInformationDaoImpl implements UserInformationDao {
     @Override
     public void updateUserInformation(UserInformation userInformation) {
         Connection con = ConnectionUtil.getMysqlConnection();
-        String sql = "update user_information set name = ?, description = ?, avatar = null, update_time = now() where user_id = ?;";
+        String sql = "update user_information set name = ?, description = ?, email = ?, phone = ?, update_time = now() where user_id = ?;";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, userInformation.getName());
             preparedStatement.setString(2, userInformation.getDescription());
-            preparedStatement.setString(3, userInformation.getUserId());
+            preparedStatement.setString(3, userInformation.getEmail());
+            preparedStatement.setString(4, userInformation.getPhone());
+            preparedStatement.setString(5, userInformation.getUserId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

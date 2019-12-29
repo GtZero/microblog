@@ -3,9 +3,9 @@ package com.guotao.www.util;
 import java.sql.*;
 
 public class ConnectionUtil {
-    private static final String url = "jdbc:mysql://129.204.206.191:3306/vtmerBlog?useUnicode=true&amp;characterEncoding=utf-8";
-    private static final String username = "guotao";
-    private static final String password = "guotao";
+    private static final String url = "jdbc:mysql://129.204.206.xxx:3306/vtmerBlog?useUnicode=true&amp;characterEncoding=utf-8";
+    private static final String username = "";
+    private static final String password = "";
 
     public static Connection getMysqlConnection(){
         Connection con = null;
